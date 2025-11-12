@@ -23,6 +23,10 @@ npm install @umituz/react-native-navigation
 npm install @react-navigation/native @umituz/react-native-design-system-theme
 ```
 
+## Related Packages
+
+- `@umituz/react-native-tabs-bottom-navigator` - For creating tab and stack navigators (use this package directly for navigators)
+
 ## Usage
 
 ### Navigation Utilities
@@ -66,8 +70,10 @@ function App() {
 
 ### Tab and Stack Navigators
 
+**Note:** For tab and stack navigators, use `@umituz/react-native-tabs-bottom-navigator` directly:
+
 ```tsx
-import { createTabNavigator, createStackNavigator } from '@umituz/react-native-navigation';
+import { createTabNavigator, createStackNavigator } from '@umituz/react-native-tabs-bottom-navigator';
 
 // Use tab navigator
 const TabNavigator = createTabNavigator(tabConfig, options);

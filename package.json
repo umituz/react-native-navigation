@@ -28,9 +28,6 @@
     "react-native": ">=0.74.0",
     "@react-navigation/native": ">=6.0.0"
   },
-  "dependencies": {
-    "@umituz/react-native-tabs-bottom-navigator": "latest"
-  },
   "devDependencies": {
     "@types/react": "^18.2.45",
     "@types/react-native": "^0.73.0",

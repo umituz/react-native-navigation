@@ -6,7 +6,9 @@
  *
  * Usage:
  *   import { AppNavigation, createNavigationTheme } from '@umituz/react-native-navigation';
- *   import { createTabNavigator, createStackNavigator } from '@umituz/react-native-navigation';
+ *
+ * NOTE: For tab and stack navigators, use @umituz/react-native-tabs-bottom-navigator directly:
+ *   import { createTabNavigator, createStackNavigator } from '@umituz/react-native-tabs-bottom-navigator';
  */
 
 // =============================================================================
@@ -20,34 +22,4 @@ export { AppNavigation } from './infrastructure/utils/AppNavigation';
 // =============================================================================
 
 export { createNavigationTheme } from './infrastructure/utils/NavigationTheme';
-
-// =============================================================================
-// NAVIGATORS (Re-export from tabs-bottom-navigator)
-// =============================================================================
-
-export {
-  createTabNavigator,
-  createStackNavigator,
-  useTabNavigation,
-  useTabBadge,
-  TabIcon,
-  TabBarBadge,
-} from '@umituz/react-native-tabs-bottom-navigator';
-
-export type {
-  TabNavigatorConfig,
-  StackNavigatorConfig,
-  TabConfig,
-  StackScreenConfig,
-  TabBadge,
-  TabIconConfig,
-  UseTabNavigationReturn,
-  UseTabBadgeReturn,
-  BadgeStateMap,
-  TabIconProps,
-  TabBarBadgeProps,
-  CreateTabNavigatorOptions,
-  TabScreenProps,
-  StackScreenProps,
-} from '@umituz/react-native-tabs-bottom-navigator';
 

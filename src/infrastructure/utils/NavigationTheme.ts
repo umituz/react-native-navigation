@@ -5,16 +5,16 @@
  */
 
 import { Theme as NavigationTheme } from '@react-navigation/native';
-import type { Theme } from '@umituz/react-native-design-system-theme';
+import type { ColorPalette, ExtendedColorPalette } from '@umituz/react-native-design-system-theme';
 
 /**
  * Create navigation theme from design system colors
- * @param colors - Design system color palette
+ * @param colors - Design system color palette (can be ColorPalette or ExtendedColorPalette)
  * @param themeMode - Theme mode ('light' | 'dark')
  * @returns React Navigation theme object
  */
 export const createNavigationTheme = (
-  colors: Theme['colors'],
+  colors: ColorPalette | ExtendedColorPalette,
   themeMode: 'light' | 'dark'
 ): NavigationTheme => ({
   dark: themeMode === 'dark',

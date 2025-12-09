@@ -37,14 +37,3 @@ export function useTabBarStyles() {
     tabBarStyle,
   };
 }
-
-export const TAB_ICONS: Record<string, string> = {
-  Feed: "Film",
-  Home: "House",
-  Creations: "Image",
-  Profile: "User",
-};
-
-export function getTabIcon(routeName: string): string {
-  return TAB_ICONS[routeName] || "Circle";
-}

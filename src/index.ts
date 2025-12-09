@@ -33,4 +33,4 @@ export { TabLabel } from './presentation/components/TabLabel';
 // HOOKS
 // =============================================================================
 
-export { useTabBarStyles, getTabIcon, TAB_ICONS } from './presentation/hooks/useTabBarStyles';
+export { useTabBarStyles } from './presentation/hooks/useTabBarStyles';

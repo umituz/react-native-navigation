@@ -57,6 +57,9 @@ export class AppNavigation {
         const parent = AppNavigation.navigationRef.getParent();
         if (parent) {
           (parent as any).navigate(routeName, params);
+        } else {
+          // Fallback: Try navigating directly if no parent found
+          AppNavigation.navigationRef.navigate(routeName, params);
         }
       } catch (error) {
         // Silent failure

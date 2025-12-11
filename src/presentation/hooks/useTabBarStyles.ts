@@ -1,33 +1,48 @@
 /**
  * Tab Bar Styles Hook
- * Provides consistent tab bar styling based on design tokens
+ * Provides configurable tab bar styling based on design tokens
  */
 
-import { Platform, StyleSheet } from "react-native";
-import { useAppDesignTokens } from "@umituz/react-native-design-system";
+import { Platform, StyleSheet } from 'react-native';
+import { useAppDesignTokens } from '@umituz/react-native-design-system';
 
-export function useTabBarStyles() {
+export interface TabBarConfig {
+  backgroundColor?: string;
+  borderTopColor?: string;
+  borderTopWidth?: number;
+  paddingTop?: number;
+  paddingBottom?: number;
+  minHeight?: number;
+  activeTintColor?: string;
+  inactiveTintColor?: string;
+  labelFontSize?: number;
+  labelFontWeight?: string;
+  labelMarginTop?: number;
+  labelMarginBottom?: number;
+}
+
+export function useTabBarStyles(config: TabBarConfig = {}) {
   const tokens = useAppDesignTokens();
 
   const tabBarStyle = {
-    backgroundColor: tokens.colors.surface,
-    borderTopColor: tokens.colors.borderLight,
-    borderTopWidth: 1,
-    paddingTop: 12,
-    paddingBottom: Platform.OS === "ios" ? 24 : 12,
-    minHeight: Platform.OS === "ios" ? 80 : 70,
+    backgroundColor: config.backgroundColor || tokens.colors.surface,
+    borderTopColor: config.borderTopColor || tokens.colors.borderLight,
+    borderTopWidth: config.borderTopWidth ?? 1,
+    paddingTop: config.paddingTop ?? 12,
+    paddingBottom: config.paddingBottom ?? (Platform.OS === 'ios' ? 24 : 12),
+    minHeight: config.minHeight ?? (Platform.OS === 'ios' ? 80 : 70),
   };
 
   const screenOptions = {
     headerShown: false,
     tabBarLabelStyle: {
-      fontSize: 12,
-      fontWeight: "600" as const,
-      marginTop: 12,
-      marginBottom: 4,
+      fontSize: config.labelFontSize ?? 12,
+      fontWeight: config.labelFontWeight ?? '600',
+      marginTop: config.labelMarginTop ?? 12,
+      marginBottom: config.labelMarginBottom ?? 4,
     },
-    tabBarActiveTintColor: tokens.colors.primary,
-    tabBarInactiveTintColor: tokens.colors.textSecondary,
+    tabBarActiveTintColor: config.activeTintColor || tokens.colors.primary,
+    tabBarInactiveTintColor: config.inactiveTintColor || tokens.colors.textSecondary,
     tabBarStyle,
   };
 

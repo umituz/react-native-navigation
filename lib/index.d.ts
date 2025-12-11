@@ -10,32 +10,13 @@
  * NOTE: For tab and stack navigators, use @umituz/react-native-tabs-bottom-navigator directly:
  *   import { createTabNavigator, createStackNavigator } from '@umituz/react-native-tabs-bottom-navigator';
  */
-
-// =============================================================================
-// NAVIGATION UTILITIES
-// =============================================================================
-
 export { AppNavigation } from './infrastructure/utils/AppNavigation';
 export { NavigationRefManager } from './infrastructure/utils/NavigationRefManager';
 export { NavigationActions } from './infrastructure/utils/NavigationActions';
 export { NavigationUtils } from './infrastructure/utils/NavigationUtils';
-
-// =============================================================================
-// NAVIGATION THEME
-// =============================================================================
-
 export { createNavigationTheme } from './infrastructure/utils/NavigationTheme';
-
-// =============================================================================
-// COMPONENTS
-// =============================================================================
-
 export { TabLabel } from './presentation/components/TabLabel';
 export type { TabLabelProps } from './presentation/components/TabLabel';
-
-// =============================================================================
-// HOOKS
-// =============================================================================
-
 export { useTabBarStyles } from './presentation/hooks/useTabBarStyles';
 export type { TabBarConfig } from './presentation/hooks/useTabBarStyles';
+//# sourceMappingURL=index.d.ts.map

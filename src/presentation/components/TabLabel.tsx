@@ -1,31 +1,53 @@
 /**
  * Tab Label Component
- * Reusable tab bar label with consistent styling
+ * Reusable tab bar label with configurable styling
  */
 
-import React from "react";
-import { AtomicText } from "@umituz/react-native-design-system";
+import React from 'react';
+import { AtomicText } from '@umituz/react-native-design-system';
 
-interface TabLabelProps {
+export interface TabLabelProps {
   label: string;
   focused: boolean;
-  color: string;
+  color?: string;
+  focusedColor?: string;
+  unfocusedColor?: string;
+  fontSize?: number;
+  focusedWeight?: '400' | '500' | '600' | '700' | '800' | '900';
+  unfocusedWeight?: '400' | '500' | '600' | '700' | '800' | '900';
+  textStyle?: any;
+  textType?: 'labelSmall' | 'labelMedium' | 'labelLarge' | 'bodySmall';
 }
 
 export const TabLabel: React.FC<TabLabelProps> = ({
   label,
   focused,
   color,
-}) => (
-  <AtomicText
-    type="labelSmall"
-    style={{
-      color,
-      textAlign: "center",
-      fontSize: 12,
-      fontWeight: focused ? "600" : "500",
-    }}
-  >
-    {label}
-  </AtomicText>
-);
+  focusedColor,
+  unfocusedColor,
+  fontSize,
+  focusedWeight = '600',
+  unfocusedWeight = '500',
+  textStyle,
+  textType = 'labelSmall',
+}) => {
+  const textColor = color || (focused ? focusedColor : unfocusedColor);
+  const fontWeight = focused ? focusedWeight : unfocusedWeight;
+
+  return (
+    <AtomicText
+      type={textType}
+      style={[
+        {
+          color: textColor,
+          textAlign: 'center',
+          fontSize,
+          fontWeight,
+        },
+        textStyle,
+      ]}
+    >
+      {label}
+    </AtomicText>
+  );
+};

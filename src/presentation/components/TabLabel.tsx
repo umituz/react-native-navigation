@@ -3,7 +3,7 @@
  * Reusable tab bar label with configurable styling
  */
 
-import React from 'react';
+import React, { useMemo } from 'react';
 import { AtomicText } from '@umituz/react-native-design-system';
 
 export interface TabLabelProps {
@@ -19,7 +19,7 @@ export interface TabLabelProps {
   textType?: 'labelSmall' | 'labelMedium' | 'labelLarge' | 'bodySmall';
 }
 
-export const TabLabel: React.FC<TabLabelProps> = ({
+export const TabLabel: React.FC<TabLabelProps> = React.memo(({
   label,
   focused,
   color,
@@ -31,23 +31,22 @@ export const TabLabel: React.FC<TabLabelProps> = ({
   textStyle,
   textType = 'labelSmall',
 }) => {
-  const textColor = color || (focused ? focusedColor : unfocusedColor);
-  const fontWeight = focused ? focusedWeight : unfocusedWeight;
+  const textStyleMemo = useMemo(() => [
+    {
+      color: color || (focused ? focusedColor : unfocusedColor),
+      textAlign: 'center' as const,
+      fontSize,
+      fontWeight: focused ? focusedWeight : unfocusedWeight,
+    },
+    textStyle,
+  ], [color, focused, focusedColor, unfocusedColor, fontSize, focusedWeight, unfocusedWeight, textStyle]);
 
   return (
     <AtomicText
       type={textType}
-      style={[
-        {
-          color: textColor,
-          textAlign: 'center',
-          fontSize,
-          fontWeight,
-        },
-        textStyle,
-      ]}
+      style={textStyleMemo}
     >
       {label}
     </AtomicText>
   );
-};
+});

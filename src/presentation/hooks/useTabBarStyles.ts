@@ -4,6 +4,7 @@
  */
 
 import { Platform } from 'react-native';
+import { useMemo } from 'react';
 import { useAppDesignTokens } from '@umituz/react-native-design-system';
 
 export interface TabBarConfig {
@@ -24,16 +25,18 @@ export interface TabBarConfig {
 export function useTabBarStyles(config: TabBarConfig = {}) {
   const tokens = useAppDesignTokens();
 
-  const tabBarStyle = {
+  const tabBarStyle = useMemo(() => ({
     backgroundColor: config.backgroundColor || tokens.colors.surface,
     borderTopColor: config.borderTopColor || tokens.colors.borderLight,
     borderTopWidth: config.borderTopWidth ?? 1,
     paddingTop: config.paddingTop ?? 12,
     paddingBottom: config.paddingBottom ?? (Platform.OS === 'ios' ? 24 : 12),
     minHeight: config.minHeight ?? (Platform.OS === 'ios' ? 80 : 70),
-  };
+  }), [config.backgroundColor, config.borderTopColor, config.borderTopWidth, 
+      config.paddingTop, config.paddingBottom, config.minHeight, tokens.colors.surface, 
+      tokens.colors.borderLight]);
 
-  const screenOptions = {
+  const screenOptions = useMemo(() => ({
     headerShown: false,
     tabBarLabelStyle: {
       fontSize: config.labelFontSize ?? 12,
@@ -44,11 +47,13 @@ export function useTabBarStyles(config: TabBarConfig = {}) {
     tabBarActiveTintColor: config.activeTintColor || tokens.colors.primary,
     tabBarInactiveTintColor: config.inactiveTintColor || tokens.colors.textSecondary,
     tabBarStyle,
-  };
+  }), [config.labelFontSize, config.labelFontWeight, config.labelMarginTop, 
+      config.labelMarginBottom, config.activeTintColor, config.inactiveTintColor, 
+      tabBarStyle, tokens.colors.primary, tokens.colors.textSecondary]);
 
-  return {
+  return useMemo(() => ({
     tokens,
     screenOptions,
     tabBarStyle,
-  };
+  }), [tokens, screenOptions, tabBarStyle]);
 }

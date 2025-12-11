@@ -20,10 +20,7 @@ export class NavigationUtils {
    */
   static getCurrentRouteName(): string | undefined {
     const ref = NavigationRefManager.getNavigationRef();
-    if (!ref) return undefined;
-
-    const currentRoute = ref.getCurrentRoute();
-    return currentRoute?.name;
+    return ref?.getCurrentRoute()?.name;
   }
 
   /**
@@ -35,20 +32,21 @@ export class NavigationUtils {
 
   /**
    * Go back with fallback route
+   * @returns true if navigation was successful, false otherwise
    */
-  static backWithFallback(fallbackRoute: string, fallbackParams?: object): void {
+  static backWithFallback(fallbackRoute: string, fallbackParams?: object): boolean {
     try {
       if (NavigationUtils.canGoBack()) {
-        NavigationActions.goBack();
+        return NavigationActions.goBack();
       } else {
-        NavigationActions.navigate(fallbackRoute, fallbackParams);
+        return NavigationActions.navigate(fallbackRoute, fallbackParams);
       }
     } catch (error) {
       if (__DEV__) {
         console.error('Navigation failed in backWithFallback:', error);
       }
       // Fallback to direct navigation
-      NavigationActions.navigate(fallbackRoute, fallbackParams);
+      return NavigationActions.navigate(fallbackRoute, fallbackParams);
     }
   }
 }

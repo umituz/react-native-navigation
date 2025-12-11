@@ -7,6 +7,7 @@ import type { NavigationContainerRef } from '@react-navigation/native';
 
 export class NavigationRefManager {
   private static navigationRef: NavigationContainerRef | null = null;
+  private static cleanupCallbacks: Array<() => void> = [];
 
   /**
    * Set navigation reference
@@ -47,10 +48,43 @@ export class NavigationRefManager {
   }
 
   /**
+   * Add cleanup callback to be called during cleanup
+   */
+  static addCleanupCallback(callback: () => void): void {
+    NavigationRefManager.cleanupCallbacks.push(callback);
+  }
+
+  /**
+   * Remove cleanup callback
+   */
+  static removeCleanupCallback(callback: () => void): void {
+    const index = NavigationRefManager.cleanupCallbacks.indexOf(callback);
+    if (index > -1) {
+      NavigationRefManager.cleanupCallbacks.splice(index, 1);
+    }
+  }
+
+  /**
    * Clean up navigation reference to prevent memory leaks
    */
   static cleanup(): void {
+    // Execute all cleanup callbacks
+    NavigationRefManager.cleanupCallbacks.forEach(callback => {
+      try {
+        callback();
+      } catch (error) {
+        if (__DEV__) {
+          console.warn('Cleanup callback failed:', error);
+        }
+      }
+    });
+    
+    // Clear callbacks array
+    NavigationRefManager.cleanupCallbacks = [];
+    
+    // Clear navigation reference
     NavigationRefManager.navigationRef = null;
+    
     if (__DEV__) {
       console.info('Navigation reference cleaned up');
     }

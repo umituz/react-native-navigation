@@ -4,6 +4,16 @@
  */
 
 export class NavigationValidator {
+  private static readonly ROUTE_NAME_PATTERN = /^[a-zA-Z0-9_-]+$/;
+  private static readonly SCRIPT_PATTERNS = [
+    /<script/i,
+    /javascript:/i,
+    /on\w+\s*=/i,
+    /data:text\/html/i,
+  ];
+  private static readonly validationCache = new Map<string, boolean>();
+  private static readonly MAX_CACHE_SIZE = 100;
+
   /**
    * Validate route name format
    */
@@ -11,8 +21,25 @@ export class NavigationValidator {
     if (!routeName || typeof routeName !== 'string') {
       return false;
     }
-    // Allow alphanumeric, underscore, and hyphen
-    return /^[a-zA-Z0-9_-]+$/.test(routeName);
+
+    // Check cache first
+    if (NavigationValidator.validationCache.has(routeName)) {
+      return NavigationValidator.validationCache.get(routeName)!;
+    }
+
+    // Validate and cache result
+    const isValid = NavigationValidator.ROUTE_NAME_PATTERN.test(routeName);
+    
+    // Manage cache size
+    if (NavigationValidator.validationCache.size >= NavigationValidator.MAX_CACHE_SIZE) {
+      const firstKey = NavigationValidator.validationCache.keys().next().value;
+      if (firstKey) {
+        NavigationValidator.validationCache.delete(firstKey);
+      }
+    }
+    
+    NavigationValidator.validationCache.set(routeName, isValid);
+    return isValid;
   }
 
   /**
@@ -49,14 +76,7 @@ export class NavigationValidator {
    * Check for potential script injection
    */
   static containsScript(value: string): boolean {
-    const scriptPatterns = [
-      /<script/i,
-      /javascript:/i,
-      /on\w+\s*=/i,
-      /data:text\/html/i,
-    ];
-    
-    return scriptPatterns.some(pattern => pattern.test(value));
+    return NavigationValidator.SCRIPT_PATTERNS.some(pattern => pattern.test(value));
   }
 
   /**

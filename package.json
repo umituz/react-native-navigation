@@ -1,6 +1,6 @@
 {
   "name": "@umituz/react-native-navigation",
-  "version": "1.8.0",
+  "version": "1.9.0",
   "description": "Comprehensive navigation system for React Native apps - Navigation utilities, theme helpers, and navigation management",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",

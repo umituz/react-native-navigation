@@ -30,51 +30,58 @@ export class AppNavigation {
 
   /**
    * Navigate to screen within current navigator
+   * @returns true if navigation was successful, false otherwise
    */
-  static navigate(routeName: string, params?: object): void {
-    NavigationActions.navigate(routeName, params);
+  static navigate(routeName: string, params?: object): boolean {
+    return NavigationActions.navigate(routeName, params);
   }
 
   /**
    * Navigate to screen in parent navigator
+   * @returns true if navigation was successful, false otherwise
    */
-  static navigateToParent(routeName: string, params?: object): void {
-    NavigationActions.navigateToParent(routeName, params);
+  static navigateToParent(routeName: string, params?: object): boolean {
+    return NavigationActions.navigateToParent(routeName, params);
   }
 
   /**
    * Navigate to specific screen in specific stack
+   * @returns true if navigation was successful, false otherwise
    */
-  static navigateToStack(stackName: string, screenName: string, params?: object): void {
-    NavigationActions.navigateToStack(stackName, screenName, params);
+  static navigateToStack(stackName: string, screenName: string, params?: object): boolean {
+    return NavigationActions.navigateToStack(stackName, screenName, params);
   }
 
   /**
    * Push new screen onto stack
+   * @returns true if navigation was successful, false otherwise
    */
-  static push(routeName: string, params?: object): void {
-    NavigationActions.push(routeName, params);
+  static push(routeName: string, params?: object): boolean {
+    return NavigationActions.push(routeName, params);
   }
 
   /**
    * Go back to previous screen
+   * @returns true if navigation was successful, false otherwise
    */
-  static goBack(): void {
-    NavigationActions.goBack();
+  static goBack(): boolean {
+    return NavigationActions.goBack();
   }
 
   /**
    * Reset navigation stack to specific route
+   * @returns true if navigation was successful, false otherwise
    */
-  static reset(routeName: string, params?: object): void {
-    NavigationActions.reset(routeName, params);
+  static reset(routeName: string, params?: object): boolean {
+    return NavigationActions.reset(routeName, params);
   }
 
   /**
    * Replace current screen
+   * @returns true if navigation was successful, false otherwise
    */
-  static replace(routeName: string, params?: object): void {
-    NavigationActions.replace(routeName, params);
+  static replace(routeName: string, params?: object): boolean {
+    return NavigationActions.replace(routeName, params);
   }
 
   /**
@@ -100,29 +107,33 @@ export class AppNavigation {
 
   /**
    * Go back with fallback route
+   * @returns true if navigation was successful, false otherwise
    */
-  static backWithFallback(fallbackRoute: string, fallbackParams?: object): void {
-    NavigationUtils.backWithFallback(fallbackRoute, fallbackParams);
+  static backWithFallback(fallbackRoute: string, fallbackParams?: object): boolean {
+    return NavigationUtils.backWithFallback(fallbackRoute, fallbackParams);
   }
 
   /**
    * Navigate to Home Screen
+   * @returns true if navigation was successful, false otherwise
    */
-  static goToHome(): void {
-    NavigationActions.navigate('Home');
+  static goToHome(): boolean {
+    return NavigationActions.navigate('Home');
   }
 
   /**
    * Navigate to Settings Screen
+   * @returns true if navigation was successful, false otherwise
    */
-  static goToSettings(): void {
-    NavigationActions.navigate('Settings');
+  static goToSettings(): boolean {
+    return NavigationActions.navigate('Settings');
   }
 
   /**
    * Navigate to Main App
+   * @returns true if navigation was successful, false otherwise
    */
-  static goToMain(): void {
-    NavigationActions.navigate('Main');
+  static goToMain(): boolean {
+    return NavigationActions.navigate('Main');
   }
 }

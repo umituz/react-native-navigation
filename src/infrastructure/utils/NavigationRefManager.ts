@@ -45,4 +45,14 @@ export class NavigationRefManager {
       console.warn('Navigation reference is not available');
     }
   }
+
+  /**
+   * Clean up navigation reference to prevent memory leaks
+   */
+  static cleanup(): void {
+    NavigationRefManager.navigationRef = null;
+    if (__DEV__) {
+      console.info('Navigation reference cleaned up');
+    }
+  }
 }

@@ -21,5 +21,9 @@ export declare class NavigationRefManager {
      * Execute navigation action safely
      */
     static executeNavigationAction(action: () => void): void;
+    /**
+     * Clean up navigation reference to prevent memory leaks
+     */
+    static cleanup(): void;
 }
 //# sourceMappingURL=NavigationRefManager.d.ts.map

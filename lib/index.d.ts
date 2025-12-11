@@ -14,6 +14,7 @@ export { AppNavigation } from './infrastructure/utils/AppNavigation';
 export { NavigationRefManager } from './infrastructure/utils/NavigationRefManager';
 export { NavigationActions } from './infrastructure/utils/NavigationActions';
 export { NavigationUtils } from './infrastructure/utils/NavigationUtils';
+export { NavigationValidator } from './infrastructure/utils/NavigationValidator';
 export { createNavigationTheme } from './infrastructure/utils/NavigationTheme';
 export { TabLabel } from './presentation/components/TabLabel';
 export type { TabLabelProps } from './presentation/components/TabLabel';

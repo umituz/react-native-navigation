@@ -1,6 +1,6 @@
 {
   "name": "@umituz/react-native-navigation",
-  "version": "1.7.0",
+  "version": "1.8.0",
   "description": "Comprehensive navigation system for React Native apps - Navigation utilities, theme helpers, and navigation management",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
@@ -8,6 +8,9 @@
     "build": "tsc",
     "typecheck": "tsc --noEmit",
     "lint": "tsc --noEmit",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
     "prepublishOnly": "npm run build",
     "version:minor": "npm version minor -m 'chore: release v%s'",
     "version:major": "npm version major -m 'chore: release v%s'"
@@ -34,15 +37,19 @@
   "devDependencies": {
     "@types/react": "^18.2.45",
     "@types/react-native": "^0.73.0",
+    "@types/jest": "^29.5.0",
+    "jest": "^29.7.0",
     "react": "^18.2.0",
     "react-native": "^0.74.0",
-    "typescript": "^5.3.3"
+    "typescript": "^5.3.3",
+    "ts-jest": "^29.1.0"
   },
   "publishConfig": {
     "access": "public"
   },
   "files": [
-    "lib",
+    "lib/**/*.js",
+    "lib/**/*.d.ts",
     "src",
     "README.md",
     "LICENSE"

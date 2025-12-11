@@ -5,12 +5,14 @@
 export declare class NavigationActions {
     /**
      * Navigate to screen within current navigator
+     * @returns true if navigation was successful, false otherwise
      */
-    static navigate(routeName: string, params?: object): void;
+    static navigate(routeName: string, params?: object): boolean;
     /**
      * Navigate to screen in parent navigator
+     * @returns true if navigation was successful, false otherwise
      */
-    static navigateToParent(routeName: string, params?: object): void;
+    static navigateToParent(routeName: string, params?: object): boolean;
     /**
      * Navigate to specific screen in specific stack
      */

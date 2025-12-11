@@ -104,4 +104,25 @@ export class AppNavigation {
   static backWithFallback(fallbackRoute: string, fallbackParams?: object): void {
     NavigationUtils.backWithFallback(fallbackRoute, fallbackParams);
   }
+
+  /**
+   * Navigate to Home Screen
+   */
+  static goToHome(): void {
+    NavigationActions.navigate('Home');
+  }
+
+  /**
+   * Navigate to Settings Screen
+   */
+  static goToSettings(): void {
+    NavigationActions.navigate('Settings');
+  }
+
+  /**
+   * Navigate to Main App
+   */
+  static goToMain(): void {
+    NavigationActions.navigate('Main');
+  }
 }

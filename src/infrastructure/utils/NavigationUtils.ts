@@ -4,6 +4,7 @@
  */
 
 import { NavigationRefManager } from './NavigationRefManager';
+import { NavigationActions } from './NavigationActions';
 
 export class NavigationUtils {
   /**
@@ -36,11 +37,17 @@ export class NavigationUtils {
    * Go back with fallback route
    */
   static backWithFallback(fallbackRoute: string, fallbackParams?: object): void {
-    if (NavigationUtils.canGoBack()) {
-      const { NavigationActions } = require('./NavigationActions');
-      NavigationActions.goBack();
-    } else {
-      const { NavigationActions } = require('./NavigationActions');
+    try {
+      if (NavigationUtils.canGoBack()) {
+        NavigationActions.goBack();
+      } else {
+        NavigationActions.navigate(fallbackRoute, fallbackParams);
+      }
+    } catch (error) {
+      if (__DEV__) {
+        console.error('Navigation failed in backWithFallback:', error);
+      }
+      // Fallback to direct navigation
       NavigationActions.navigate(fallbackRoute, fallbackParams);
     }
   }

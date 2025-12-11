@@ -61,5 +61,17 @@ export declare class AppNavigation {
      * Go back with fallback route
      */
     static backWithFallback(fallbackRoute: string, fallbackParams?: object): void;
+    /**
+     * Navigate to Home Screen
+     */
+    static goToHome(): void;
+    /**
+     * Navigate to Settings Screen
+     */
+    static goToSettings(): void;
+    /**
+     * Navigate to Main App
+     */
+    static goToMain(): void;
 }
 //# sourceMappingURL=AppNavigation.d.ts.map

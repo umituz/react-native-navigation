@@ -5,44 +5,79 @@
 
 import { CommonActions, StackActions } from '@react-navigation/native';
 import { NavigationRefManager } from './NavigationRefManager';
+import { NavigationValidator } from './NavigationValidator';
 
 export class NavigationActions {
   /**
    * Navigate to screen within current navigator
+   * @returns true if navigation was successful, false otherwise
    */
-  static navigate(routeName: string, params?: object): void {
-    NavigationRefManager.executeNavigationAction(() => {
-      const ref = NavigationRefManager.getNavigationRef();
-      ref?.navigate(routeName, params);
-    });
+  static navigate(routeName: string, params?: object): boolean {
+    try {
+      NavigationValidator.validateNavigationInput(routeName, params);
+      let success = false;
+      NavigationRefManager.executeNavigationAction(() => {
+        const ref = NavigationRefManager.getNavigationRef();
+        if (ref) {
+          ref.navigate(routeName, params);
+          success = true;
+        }
+      });
+      return success;
+    } catch (error) {
+      if (__DEV__) {
+        console.error('Navigation validation failed:', error);
+      }
+      return false;
+    }
   }
 
   /**
    * Navigate to screen in parent navigator
+   * @returns true if navigation was successful, false otherwise
    */
-  static navigateToParent(routeName: string, params?: object): void {
-    NavigationRefManager.executeNavigationAction(() => {
-      const ref = NavigationRefManager.getNavigationRef();
-      const parent = ref?.getParent();
-      if (parent) {
-        parent.navigate(routeName, params);
-      } else {
-        ref?.navigate(routeName, params);
+  static navigateToParent(routeName: string, params?: object): boolean {
+    try {
+      NavigationValidator.validateNavigationInput(routeName, params);
+      let success = false;
+      NavigationRefManager.executeNavigationAction(() => {
+        const ref = NavigationRefManager.getNavigationRef();
+        const parent = ref?.getParent();
+        if (parent) {
+          parent.navigate(routeName, params);
+          success = true;
+        } else if (ref) {
+          ref.navigate(routeName, params);
+          success = true;
+        }
+      });
+      return success;
+    } catch (error) {
+      if (__DEV__) {
+        console.error('Parent navigation validation failed:', error);
       }
-    });
+      return false;
+    }
   }
 
   /**
    * Navigate to specific screen in specific stack
    */
   static navigateToStack(stackName: string, screenName: string, params?: object): void {
-    NavigationRefManager.executeNavigationAction(() => {
-      const ref = NavigationRefManager.getNavigationRef();
-      ref?.navigate(stackName, {
-        screen: screenName,
-        params,
+    try {
+      NavigationValidator.validateNavigationInput(screenName, params, stackName);
+      NavigationRefManager.executeNavigationAction(() => {
+        const ref = NavigationRefManager.getNavigationRef();
+        ref?.navigate(stackName, {
+          screen: screenName,
+          params,
+        });
       });
-    });
+    } catch (error) {
+      if (__DEV__) {
+        console.error('Stack navigation validation failed:', error);
+      }
+    }
   }
 
   /**

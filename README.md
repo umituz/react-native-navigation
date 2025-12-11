@@ -20,7 +20,7 @@ npm install @umituz/react-native-navigation
 ## Peer Dependencies
 
 ```bash
-npm install @react-navigation/native @umituz/react-native-design-system-theme
+npm install @react-navigation/native @umituz/react-native-design-system
 ```
 
 ## Related Packages
@@ -53,7 +53,7 @@ AppNavigation.goToMain();
 
 ```tsx
 import { createNavigationTheme } from '@umituz/react-native-navigation';
-import { useTheme, useAppDesignTokens } from '@umituz/react-native-design-system-theme';
+import { useTheme, useAppDesignTokens } from '@umituz/react-native-design-system';
 
 function App() {
   const { themeMode } = useTheme();

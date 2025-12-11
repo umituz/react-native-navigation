@@ -3,7 +3,7 @@
  * Provides configurable tab bar styling based on design tokens
  */
 
-import { Platform, StyleSheet } from 'react-native';
+import { Platform } from 'react-native';
 import { useAppDesignTokens } from '@umituz/react-native-design-system';
 
 export interface TabBarConfig {

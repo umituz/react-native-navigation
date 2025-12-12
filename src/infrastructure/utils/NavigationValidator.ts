@@ -14,7 +14,6 @@ export class NavigationValidator {
     /data:text\/html/i,
   ];
   private static readonly validationCache = new Map<string, boolean>();
-  private static readonly MAX_CACHE_SIZE = 100;
 
   /**
    * Validate route name format

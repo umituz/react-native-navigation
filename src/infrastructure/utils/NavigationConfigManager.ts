@@ -3,7 +3,7 @@
  * Manages dynamic navigation configuration for generic usage
  */
 
-import type { NavigationConfig, NavigationRouteConfig } from '../types/NavigationConfig';
+import type { NavigationConfig, NavigationRouteConfig } from '../../types/NavigationConfig';
 
 export class NavigationConfigManager {
   private static config: NavigationConfig = {};

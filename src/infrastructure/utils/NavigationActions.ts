@@ -6,6 +6,7 @@
 import { CommonActions, StackActions } from '@react-navigation/native';
 import { NavigationRefManager } from './NavigationRefManager';
 import { NavigationValidator } from './NavigationValidator';
+import { NavigationConfigManager } from './NavigationConfigManager';
 
 export class NavigationActions {
   /**
@@ -23,7 +24,7 @@ export class NavigationActions {
       });
       return true;
     } catch (error) {
-      if (__DEV__) {
+      if (NavigationConfigManager.isDevLogsEnabled()) {
         console.error('Navigation validation failed:', error);
       }
       return false;

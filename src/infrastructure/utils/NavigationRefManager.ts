@@ -4,6 +4,7 @@
  */
 
 import type { NavigationContainerRef } from '@react-navigation/native';
+import { NavigationConfigManager } from './NavigationConfigManager';
 
 export class NavigationRefManager {
   private static navigationRef: NavigationContainerRef | null = null;
@@ -38,11 +39,11 @@ export class NavigationRefManager {
       try {
         action();
       } catch (error) {
-        if (__DEV__) {
+        if (NavigationConfigManager.isDevLogsEnabled()) {
           console.warn('Navigation action failed:', error);
         }
       }
-    } else if (__DEV__) {
+    } else if (NavigationConfigManager.isDevLogsEnabled()) {
       console.warn('Navigation reference is not available');
     }
   }
@@ -73,7 +74,7 @@ export class NavigationRefManager {
       try {
         callback();
       } catch (error) {
-        if (__DEV__) {
+        if (NavigationConfigManager.isDevLogsEnabled()) {
           console.warn('Cleanup callback failed:', error);
         }
       }
@@ -85,7 +86,7 @@ export class NavigationRefManager {
     // Clear navigation reference
     NavigationRefManager.navigationRef = null;
     
-    if (__DEV__) {
+    if (NavigationConfigManager.isDevLogsEnabled()) {
       console.info('Navigation reference cleaned up');
     }
   }

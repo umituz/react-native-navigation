@@ -3,6 +3,8 @@
  * Provides input validation and sanitization for navigation
  */
 
+import { NavigationConfigManager } from './NavigationConfigManager';
+
 export class NavigationValidator {
   private static readonly ROUTE_NAME_PATTERN = /^[a-zA-Z0-9_-]+$/;
   private static readonly SCRIPT_PATTERNS = [
@@ -22,23 +24,32 @@ export class NavigationValidator {
       return false;
     }
 
-    // Check cache first
-    if (NavigationValidator.validationCache.has(routeName)) {
+    // Skip validation if disabled
+    if (!NavigationConfigManager.isValidationEnabled()) {
+      return true;
+    }
+
+    // Check cache first if enabled
+    if (NavigationConfigManager.isCacheEnabled() && NavigationValidator.validationCache.has(routeName)) {
       return NavigationValidator.validationCache.get(routeName)!;
     }
 
     // Validate and cache result
     const isValid = NavigationValidator.ROUTE_NAME_PATTERN.test(routeName);
     
-    // Manage cache size
-    if (NavigationValidator.validationCache.size >= NavigationValidator.MAX_CACHE_SIZE) {
-      const firstKey = NavigationValidator.validationCache.keys().next().value;
-      if (firstKey) {
-        NavigationValidator.validationCache.delete(firstKey);
+    // Manage cache size if caching is enabled
+    if (NavigationConfigManager.isCacheEnabled()) {
+      const maxSize = NavigationConfigManager.getPerformanceConfig().maxCacheSize;
+      if (NavigationValidator.validationCache.size >= maxSize) {
+        const firstKey = NavigationValidator.validationCache.keys().next().value;
+        if (firstKey) {
+          NavigationValidator.validationCache.delete(firstKey);
+        }
       }
+      
+      NavigationValidator.validationCache.set(routeName, isValid);
     }
     
-    NavigationValidator.validationCache.set(routeName, isValid);
     return isValid;
   }
 

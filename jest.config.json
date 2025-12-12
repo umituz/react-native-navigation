@@ -12,5 +12,9 @@
     "!src/tests/**"
   ],
   "coverageDirectory": "coverage",
-  "coverageReporters": ["text", "lcov", "html"]
+  "coverageReporters": ["text", "lcov", "html"],
+  "setupFilesAfterEnv": ["<rootDir>/jest.setup.js"],
+  "moduleNameMapping": {
+    "^@react-navigation/native$": "<rootDir>/src/__mocks__/@react-navigation/native.ts"
+  }
 }

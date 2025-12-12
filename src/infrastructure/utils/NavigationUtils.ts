@@ -5,6 +5,7 @@
 
 import { NavigationRefManager } from './NavigationRefManager';
 import { NavigationActions } from './NavigationActions';
+import { NavigationConfigManager } from './NavigationConfigManager';
 
 export class NavigationUtils {
   /**
@@ -42,7 +43,7 @@ export class NavigationUtils {
         return NavigationActions.navigate(fallbackRoute, fallbackParams);
       }
     } catch (error) {
-      if (__DEV__) {
+      if (NavigationConfigManager.isDevLogsEnabled()) {
         console.error('Navigation failed in backWithFallback:', error);
       }
       // Fallback to direct navigation

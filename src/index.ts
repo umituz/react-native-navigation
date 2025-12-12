@@ -20,6 +20,7 @@ export { NavigationRefManager } from './infrastructure/utils/NavigationRefManage
 export { NavigationActions } from './infrastructure/utils/NavigationActions';
 export { NavigationUtils } from './infrastructure/utils/NavigationUtils';
 export { NavigationValidator } from './infrastructure/utils/NavigationValidator';
+export { NavigationConfigManager } from './infrastructure/utils/NavigationConfigManager';
 
 // =============================================================================
 // NAVIGATION THEME
@@ -40,3 +41,9 @@ export type { TabLabelProps } from './presentation/components/TabLabel';
 
 export { useTabBarStyles } from './presentation/hooks/useTabBarStyles';
 export type { TabBarConfig } from './presentation/hooks/useTabBarStyles';
+
+// =============================================================================
+// TYPES
+// =============================================================================
+
+export type { NavigationConfig, NavigationRouteConfig, NavigationPerformanceConfig } from './types/NavigationConfig';

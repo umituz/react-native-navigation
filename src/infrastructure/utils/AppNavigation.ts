@@ -9,6 +9,7 @@ import type { NavigationContainerRef } from '@react-navigation/native';
 import { NavigationRefManager } from './NavigationRefManager';
 import { NavigationActions } from './NavigationActions';
 import { NavigationUtils } from './NavigationUtils';
+import { NavigationConfigManager } from './NavigationConfigManager';
 
 /**
  * Navigation helper functions for centralized routing
@@ -34,6 +35,70 @@ export class AppNavigation {
    */
   static navigate(routeName: string, params?: object): boolean {
     return NavigationActions.navigate(routeName, params);
+  }
+
+  /**
+   * Navigate to configured route
+   * @returns true if navigation was successful, false otherwise
+   */
+  static navigateToConfiguredRoute(routeKey: string): boolean {
+    const routeConfig = NavigationConfigManager.getRouteConfig(routeKey);
+    if (!routeConfig) {
+      if (__DEV__) {
+        console.warn(`Route configuration not found for key: ${routeKey}`);
+      }
+      return false;
+    }
+    
+    return NavigationActions.navigate(routeConfig.name, routeConfig.params);
+  }
+
+  /**
+   * Navigate to default home route
+   * @returns true if navigation was successful, false otherwise
+   */
+  static goToHome(): boolean {
+    const homeRoute = NavigationConfigManager.getDefaultRoute('home');
+    if (homeRoute) {
+      return NavigationActions.navigate(homeRoute);
+    }
+    
+    if (__DEV__) {
+      console.warn('Home route not configured');
+    }
+    return false;
+  }
+
+  /**
+   * Navigate to default settings route
+   * @returns true if navigation was successful, false otherwise
+   */
+  static goToSettings(): boolean {
+    const settingsRoute = NavigationConfigManager.getDefaultRoute('settings');
+    if (settingsRoute) {
+      return NavigationActions.navigate(settingsRoute);
+    }
+    
+    if (__DEV__) {
+      console.warn('Settings route not configured');
+    }
+    return false;
+  }
+
+  /**
+   * Navigate to default main route
+   * @returns true if navigation was successful, false otherwise
+   */
+  static goToMain(): boolean {
+    const mainRoute = NavigationConfigManager.getDefaultRoute('main');
+    if (mainRoute) {
+      return NavigationActions.navigate(mainRoute);
+    }
+    
+    if (__DEV__) {
+      console.warn('Main route not configured');
+    }
+    return false;
   }
 
   /**
@@ -113,27 +178,5 @@ export class AppNavigation {
     return NavigationUtils.backWithFallback(fallbackRoute, fallbackParams);
   }
 
-  /**
-   * Navigate to Home Screen
-   * @returns true if navigation was successful, false otherwise
-   */
-  static goToHome(): boolean {
-    return NavigationActions.navigate('Home');
-  }
 
-  /**
-   * Navigate to Settings Screen
-   * @returns true if navigation was successful, false otherwise
-   */
-  static goToSettings(): boolean {
-    return NavigationActions.navigate('Settings');
-  }
-
-  /**
-   * Navigate to Main App
-   * @returns true if navigation was successful, false otherwise
-   */
-  static goToMain(): boolean {
-    return NavigationActions.navigate('Main');
-  }
 }
